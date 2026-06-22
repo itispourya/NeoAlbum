@@ -1,0 +1,387 @@
+.neoalbum-container {
+    max-width: 100%;
+    margin: 20px auto;
+    position: relative;
+}
+
+.neoalbum-container::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #000;
+    z-index: 99998;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.1s ease;
+}
+
+.neoalbum-container.screenshot-protected::before {
+    opacity: 0;
+}
+
+/* Hide content when window loses focus for screenshot prevention */
+.neoalbum-container.screenshot-protected.blur-content .neoalbum-book-wrapper,
+.neoalbum-container.screenshot-protected.blur-content .neoalbum-fullscreen-single-page {
+    opacity: 0 !important;
+}
+
+.neoalbum-container.screenshot-protected.blur-content::before {
+    opacity: 1 !important;
+}
+
+.neoalbum-container.screenshot-protected {
+    user-select: none !important;
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
+    pointer-events: auto;
+}
+
+.neoalbum-password-form {
+    text-align: center;
+    padding: 40px;
+    background: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.neoalbum-password-form h3 {
+    margin-top: 0;
+}
+
+.neoalbum-password-input {
+    padding: 8px;
+    margin: 10px 0;
+    width: 300px;
+}
+
+.neoalbum-book-wrapper {
+    text-align: center;
+    padding: 20px;
+    touch-action: none;
+}
+
+.neoalbum-book {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    perspective: 2500px;
+    perspective-origin: center center;
+    position: relative;
+    border: 30px solid #5d3a1a;
+    border-radius: 8px;
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.4),
+        inset 0 0 30px rgba(0, 0, 0, 0.3),
+        5px 5px 15px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(to right, #d4b896 0%, #c4a482 48%, #4a3728 50%, #c4a482 52%, #d4b896 100%);
+    cursor: grab;
+    user-select: none;
+}
+
+.neoalbum-page-container {
+    width: 50%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.neoalbum-page {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform-style: preserve-3d;
+    background: #fff;
+    box-shadow: 
+        inset 0 0 20px rgba(0, 0, 0, 0.05),
+        2px 0 5px rgba(0, 0, 0, 0.1);
+    backface-visibility: hidden;
+}
+
+.neoalbum-page.left-page {
+    transform-origin: right center;
+    box-shadow: 
+        inset 0 0 20px rgba(0, 0, 0, 0.05),
+        -2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.neoalbum-page.right-page {
+    transform-origin: left center;
+}
+
+.neoalbum-page-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background: #fff;
+}
+
+.neoalbum-page-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-width: var(--img-border-width, 0px);
+    border-color: var(--img-border-color, #000000);
+    border-style: var(--img-border-style, none);
+    box-sizing: border-box;
+}
+
+.neoalbum-page-image.protected {
+    pointer-events: none !important;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
+}
+
+.neoalbum-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
+
+.neoalbum-prev-btn,
+.neoalbum-next-btn,
+.neoalbum-fullscreen-btn {
+    padding: 12px 24px;
+    font-size: var(--btn-font-size, 15px);
+    cursor: pointer;
+    background: var(--btn-bg-color, #8B4513);
+    color: var(--btn-text-color, #FFFFFF);
+    border: none;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.neoalbum-prev-btn:hover,
+.neoalbum-next-btn:hover,
+.neoalbum-fullscreen-btn:hover {
+    filter: brightness(1.2);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.neoalbum-prev-btn:active,
+.neoalbum-next-btn:active,
+.neoalbum-fullscreen-btn:active {
+    transform: translateY(0);
+}
+
+.neoalbum-prev-btn:disabled,
+.neoalbum-next-btn:disabled,
+.neoalbum-fullscreen-btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.neoalbum-page-indicator {
+    font-size: 18px;
+    font-weight: 700;
+    color: #5d3a1a;
+    min-width: 100px;
+    text-align: center;
+}
+
+.neoalbum-fullscreen {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    background: #000 !important;
+    z-index: 99999 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    touch-action: none;
+}
+
+.neoalbum-fullscreen .neoalbum-password-form {
+    display: none;
+}
+
+.neoalbum-fullscreen .neoalbum-book-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.neoalbum-fullscreen .neoalbum-book {
+    display: none;
+}
+
+.neoalbum-fullscreen .neoalbum-fullscreen-single-page {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.neoalbum-fullscreen .neoalbum-single-page-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    user-select: none;
+    pointer-events: none;
+    max-width: 100vw;
+    max-height: 100vh;
+    border-width: var(--img-border-width, 0px);
+    border-color: var(--img-border-color, #000000);
+    border-style: var(--img-border-style, none);
+    box-sizing: border-box;
+}
+
+.neoalbum-fullscreen .neoalbum-page-indicator {
+    color: #fff;
+    position: absolute;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 18px;
+    background: rgba(0,0,0,0.5);
+    padding: 8px 20px;
+    border-radius: 20px;
+    z-index: 100;
+}
+
+.neoalbum-fullscreen .neoalbum-controls {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    z-index: 100;
+}
+
+.neoalbum-fullscreen .neoalbum-prev-btn,
+.neoalbum-fullscreen .neoalbum-next-btn,
+.neoalbum-fullscreen .neoalbum-fullscreen-btn {
+    background: var(--btn-bg-color, #8B4513);
+    backdrop-filter: blur(10px);
+    color: var(--btn-text-color, #FFFFFF);
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+.neoalbum-fullscreen .neoalbum-prev-btn:hover,
+.neoalbum-fullscreen .neoalbum-next-btn:hover,
+.neoalbum-fullscreen .neoalbum-fullscreen-btn:hover {
+    filter: brightness(1.2);
+}
+
+.neoalbum-fullscreen-zoom-icon {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 100000;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.neoalbum-fullscreen-zoom-icon:hover {
+    background: rgba(0, 0, 0, 0.7);
+    transform: scale(1.1);
+}
+
+.neoalbum-fullscreen-zoom-icon svg {
+    width: 28px;
+    height: 28px;
+    fill: none;
+    stroke: white;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .neoalbum-container {
+        padding: 10px;
+    }
+    
+    .neoalbum-book-wrapper {
+        padding: 10px;
+    }
+    
+    .neoalbum-book {
+        width: 100% !important;
+        max-width: 100%;
+        height: auto !important;
+        aspect-ratio: 210 / 297; /* A4 aspect ratio */
+        border-width: 15px;
+        box-shadow: 
+            0 10px 20px rgba(0, 0, 0, 0.4),
+            inset 0 0 15px rgba(0, 0, 0, 0.3),
+            2px 2px 8px rgba(0, 0, 0, 0.3);
+    }
+    
+    .neoalbum-prev-btn,
+    .neoalbum-next-btn,
+    .neoalbum-fullscreen-btn {
+        padding: 10px 16px;
+        font-size: var(--btn-font-size, 15px);
+    }
+    
+    .neoalbum-page-indicator {
+        font-size: 15px;
+    }
+    
+    .neoalbum-controls {
+        gap: 10px;
+        margin-top: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .neoalbum-book {
+        border-width: 10px;
+    }
+    
+    .neoalbum-controls {
+        gap: 8px;
+        margin-top: 15px;
+    }
+    
+    .neoalbum-prev-btn,
+    .neoalbum-next-btn,
+    .neoalbum-fullscreen-btn {
+        padding: 8px 12px;
+        font-size: var(--btn-font-size, 15px);
+    }
+}
